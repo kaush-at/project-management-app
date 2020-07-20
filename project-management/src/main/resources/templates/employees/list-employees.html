@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+	<nav th:replace="layouts :: navbar"></nav>
+
+	<div class="container">
+		<h4>Employees</h4>
+		<hr>
+
+		<!-- Add New Project Button -->
+		<a th:href="@{/employees/new}" class="btn btn-primary btn-sm mb-3">New
+			Employee</a>
+
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Employee's First Name</th>
+					<th>Employee's First Name</th>
+					<th>Employee's Email</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="employee : ${employeeList}">
+					<td th:text="${employee.firstName}"></td>
+					<td th:text="${employee.lastName}"></td>
+					<td th:text="${employee.email}"></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+</body>
+</html>
