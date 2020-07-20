@@ -9,34 +9,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-//This class structure is going to map to a table structure in database
-// try to create mapping with a java world with a database world thanks tp java persistence library
-// most specifically JPA(Java persistence API) that is part of the hibernate module withing spring
 
 @Entity
 public class Project {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO) // this is how we out-source to DB to create ID
+	@GeneratedValue(strategy=GenerationType.AUTO) 
 	private long projectId;
 	private String name;
-	private String stage; //NOTSTARTE,COMPLETE,INPROGRESS
+	private String stage; 
 	private String description;
 	
 	public Project() {
 		
 	}
 	
-	// we miss the id here because we need to let database(outsource to the database to do that )to create a unique id
 	public Project(String name, String stage, String description) {
 		super();
 		this.name = name;
 		this.stage = stage;
 		this.description = description;
 	}
-
-	@OneToMany
-	private List<Employee> employees;
 	
 	
 	public long getProjectId() {

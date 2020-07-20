@@ -16,16 +16,14 @@
 				<th>Project Stage</th>
 			</tr>
 		</thead>
-		
+
 		<tbody>
-		<!-- first we need to define iterating variable and collection object  (${projects} contains actual java object passing from backend
-				contains actual data forEach ekak wage tamai => aProject is a temporary variable)-->
 			<tr th:each="aProject : ${projectList}">
 				<td th:text="${aProject.name}"></td>
 				<td th:text="${aProject.stage}"></td>
 			</tr>
 		</tbody>
-		
+
 	</table>
 </div>
 <br><br>
@@ -39,7 +37,7 @@
 				<th>Employee's Email</th>
 			</tr>
 		</thead>
-		
+
 		<tbody>
 			<tr th:each="employee : ${employeeList}">
 				<td th:text="${employee.firstName}"></td>
@@ -47,7 +45,7 @@
 				<td th:text="${employee.email}"></td>
 			</tr>
 		</tbody>
-		
+
 	</table>
 </div>
 

@@ -18,7 +18,7 @@ import com.kaush.pma.entities.Project;
 public class ProjectController {
 	
 	
-	@Autowired // we gives responsibility to spring container to inject an instance(auto created instance)
+	@Autowired 
 	ProjectRepository proRepo;
 	
 	@GetMapping
@@ -28,26 +28,17 @@ public class ProjectController {
 		return "projects/list-projects";
 	} 
 	
-	@RequestMapping("/new") //OR @GetMapping("/new") 
-	public String displayProjectForm(Model model) { // model is use to exchange the data between view and controller
-		
-		Project aProject = new Project(); // thats why we created default constructor in the project class thats why we can create
-										  // this empty project
-		
-		model.addAttribute("project", aProject); // name of the model object should same as th:object="${project}" in the HTML page
-		
-		return "projects/new-project"; // no need .html -> because Thymeleaf is smart enough to match it with name 
-		
+	@RequestMapping("/new") 
+	public String displayProjectForm(Model model) { 
+		Project aProject = new Project(); 								 
+		model.addAttribute("project", aProject); 
+		return "projects/new-project";  	
 	}
 	
 	// get the form data
-	@PostMapping("/save") // OR @RequestMapping("/save", method=RequestedMethod.POST)
+	@PostMapping("/save") 
 	public String saveProject(Project project, Model model) {
-		
 		proRepo.save(project);
-		
-		// use redirect to prevent duplicate submissions (when user submit two three times it can submit duplicates) 
-		// therefore always try to do redirect after saving data  
 		return "redirect:/projects/new";
 		
 	}

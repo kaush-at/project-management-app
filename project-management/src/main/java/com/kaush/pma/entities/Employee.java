@@ -21,9 +21,6 @@ public class Employee {
 		
 	}
 	
-	@ManyToOne
-	Project project;
-	
 	public Employee(String firstName, String lastName, String email) {
 		super();
 		this.firstName = firstName;

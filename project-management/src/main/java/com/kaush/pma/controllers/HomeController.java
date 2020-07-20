@@ -24,8 +24,8 @@ public class HomeController {
 	@GetMapping("/")
 	public String displayHome(Model model) {
 		// quering database for projects
-		List<Project> projects = proRepo.findAll();  // findAll method we get from extended CrudRepository interface it returns iterable 
-													// object therefore we customize it in our ProjectRep[o interface
+		List<Project> projects = proRepo.findAll();  
+													
 		model.addAttribute("projectList", projects);
 		
 		// quering database for employee
