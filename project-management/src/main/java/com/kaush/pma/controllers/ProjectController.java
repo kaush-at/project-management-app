@@ -49,19 +49,26 @@ public class ProjectController {
 	
 	// get the form data
 	@PostMapping("/save") // OR @RequestMapping("/save", method=RequestedMethod.POST)
-	public String saveProject(Project project, BindingResult bindingResults, @RequestParam List<Long> employees, Model model) { 
-		
+	//public String saveProject(Project project, BindingResult bindingResults, @RequestParam List<Long> employees, Model model) { 
+	public String saveProject(Project project, Model model,@RequestParam List<Long> employees) { 	
 		proRepo.save(project);
-		Iterable<Employee> choosenEmployees = empRepo.findAllById(employees);
+		
 	
-		for(Employee emp : choosenEmployees) {
-			emp.setProject(project);
-			empRepo.save(emp);
-		}
+		 // commented this lines because of @ManyToMany relationship
+//		  		Iterable<Employee> choosenEmployees = empRepo.findAllById(employees);
+//	
+//				for(Employee emp : choosenEmployees) {
+//					emp.setProject(project);
+//					empRepo.save(emp);
+//				}
+		 
+		
+
+
 		
 		// use redirect to prevent duplicate submissions (when user submit two three times it can submit duplicates) 
 		// therefore always try to do redirect after saving data  
-		return "redirect:/projects/new";
+		return "redirect:/projects";
 		
 	}
 }

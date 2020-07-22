@@ -1,12 +1,17 @@
 package com.kaush.pma.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 //This class structure is going to map to a table structure in database
 // try to create mapping with a java world with a database world thanks tp java persistence library
@@ -16,7 +21,8 @@ import javax.persistence.OneToMany;
 public class Project {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO) // this is how we out-source to DB to create ID
+	//@GeneratedValue(strategy=GenerationType.AUTO) // this is how we out-source to Hibernate to create ID
+	@GeneratedValue(strategy=GenerationType.IDENTITY) // if we use external file to insert data initially
 	private long projectId;
 	private String name;
 	private String stage; //NOTSTARTE,COMPLETE,INPROGRESS
@@ -34,7 +40,14 @@ public class Project {
 		this.description = description;
 	}
 
-	@OneToMany(mappedBy="project")
+	/*
+	 * 	@OneToMany(mappedBy="project")
+	 *  private List<Employee> employees;
+	 * 
+	 */
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "project_id") ,
+										  inverseJoinColumns = @JoinColumn(name = "employee_id") )
 	private List<Employee> employees;
 	
 	
@@ -78,6 +91,12 @@ public class Project {
 		this.employees = employees;
 	}
 	
-	
+	// convenience method
+	public void addEmployee(Employee emp) {
+		if(employees == null) {
+			employees= new ArrayList<>();
+		}
+		employees.add(emp);
+	}
 	
 }

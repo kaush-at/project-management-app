@@ -2,53 +2,72 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace ="layouts :: header"></head>
+<head th:replace="layouts :: header"></head>
 
 <body>
-<nav th:replace ="layouts :: navbar"></nav>
+	<nav th:replace="layouts :: navbar"></nav>
+	<br>
+	<div class="container">
+		<h3>Main Dashboard</h3>
+		<hr>
+		<h4>Current Projects</h4>
+		<div class="row">
+			<div class="col-md-6">
 
-<div>
-	<h4>Current Projects</h4>
-	<table>
-		<thead>
-			<tr>
-				<th>Project Name</th>
-				<th>Project Stage</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-		<!-- first we need to define iterating variable and collection object  (${projects} contains actual java object passing from backend
+				<table class="table table-bordered table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<th>Project Name</th>
+							<th>Project Stage</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<!-- first we need to define iterating variable and collection object  (${projects} contains actual java object passing from backend
 				contains actual data forEach ekak wage tamai => aProject is a temporary variable)-->
-			<tr th:each="aProject : ${projectList}">
-				<td th:text="${aProject.name}"></td>
-				<td th:text="${aProject.stage}"></td>
-			</tr>
-		</tbody>
-		
-	</table>
-</div>
-<br><br>
-<div>
-	<h4>Employees</h4>
-	<table>
-		<thead>
-			<tr>
-				<th>Employee's First Name</th>
-				<th>Employee's First Name</th>
-				<th>Employee's Email</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<tr th:each="employee : ${employeeList}">
-				<td th:text="${employee.firstName}"></td>
-				<td th:text="${employee.lastName}"></td>
-				<td th:text="${employee.email}"></td>
-			</tr>
-		</tbody>
-		
-	</table>
-</div>
+						<tr th:each="aProject : ${projectList}">
+							<td th:text="${aProject.name}"></td>
+							<td th:text="${aProject.stage}"></td>
+						</tr>
+					</tbody>
 
+				</table>
+			</div>
+			<div class="col-md-4">
+				<canvas id="myPieChart" height="50" width="50"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<br> <br>
+		<div class="container">
+		<h4>Employees</h4>
+		<div class="row">
+			<div class="col-md-6">
+
+
+				<table class="table table-bordered table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<th>Employee's First Name</th>
+							<th>Employee's First Name</th>
+							<th>Employee's Email</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="employee : ${employeeList}">
+							<td th:text="${employee.firstName}"></td>
+							<td th:text="${employee.lastName}"></td>
+							<td th:text="${employee.email}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript" th:src="@{/js/myChart.js}"></script>
 </body>
