@@ -33,8 +33,13 @@
 
 				</table>
 			</div>
+			<div class="col-md-2"></div>
 			<div class="col-md-4">
 				<canvas id="myPieChart" height="50" width="50"></canvas>
+				
+				<script>
+					var chartData = "[[${projectStatusCount}]]"
+				</script>
 			</div>
 		</div>
 	</div>
@@ -49,17 +54,17 @@
 				<table class="table table-bordered table-striped">
 					<thead class="thead-dark">
 						<tr>
-							<th>Employee's First Name</th>
-							<th>Employee's First Name</th>
-							<th>Employee's Email</th>
+							<th>First Name</th>
+							<th>First Name</th>
+							<th>Project Count</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr th:each="employee : ${employeeList}">
-							<td th:text="${employee.firstName}"></td>
-							<td th:text="${employee.lastName}"></td>
-							<td th:text="${employee.email}"></td>
+						<tr th:each="anEmployeeProjectCnt : ${employeeListProjectCount}">
+							<td th:text="${anEmployeeProjectCnt.firstName}"></td>
+							<td th:text="${anEmployeeProjectCnt.lastName}"></td>
+							<td th:text="${anEmployeeProjectCnt.projectCount}"></td>
 						</tr>
 					</tbody>
 
