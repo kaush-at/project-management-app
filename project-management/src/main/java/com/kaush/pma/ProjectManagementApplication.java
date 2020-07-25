@@ -12,7 +12,9 @@ import com.kaush.pma.springExample.Doors;
 import com.kaush.pma.springExample.Engine;
 import com.kaush.pma.springExample.Tires;
 
-@SpringBootApplication
+//@SpringBootApplication  => we add below line with parameter to scan other packages out side of the base package
+@SpringBootApplication(scanBasePackages= {"com.kaush.pma","com.kaush.utills"}) //com.kaush.utills witharak tibbot eka witharai scan karanne eka 
+																			  //nisa scan karanna one okkoma danna one
 public class ProjectManagementApplication {
 
 	@Autowired

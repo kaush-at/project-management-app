@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 
 //This class structure is going to map to a table structure in database
 // try to create mapping with a java world with a database world thanks tp java persistence library
@@ -20,9 +21,14 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Project {
 
-	@Id
+	
 	//@GeneratedValue(strategy=GenerationType.AUTO) // this is how we out-source to Hibernate to create ID
-	@GeneratedValue(strategy=GenerationType.IDENTITY) // if we use external file to insert data initially
+	//@GeneratedValue(strategy=GenerationType.IDENTITY) // if we use external file to insert data initially
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE ) // to do batch update Identity eke karapu ekakama karanawa meka speed
+	// because we use CREATE SEQUENCE IF NOT EXISTS project_seq;; in our schema.sql file we need to add generator parameter
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="project_seq")
+	@SequenceGenerator(name = "project_seq", sequenceName = "project_seq", allocationSize = 1)
 	private long projectId;
 	private String name;
 	private String stage; //NOTSTARTE,COMPLETE,INPROGRESS
