@@ -29,7 +29,7 @@ public class HomeController {
 	// this is how we access the properties inside the property files
 	@Value(value = "${version}")
 	private String version;
-	
+
 	@Autowired
 	ProjectRepository proRepo;
 	
@@ -40,6 +40,7 @@ public class HomeController {
 	public String displayHome(Model model) throws JsonProcessingException {
 		Map<String, Object> map = new HashMap<>();
 		
+		model.addAttribute("version", version);
 		// quering database for projects
 		List<Project> projects = proRepo.findAll();  // findAll method we get from extended CrudRepository interface it returns iterable 
 													// object therefore we customize it in our ProjectRep[o interface
