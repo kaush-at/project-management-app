@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kaush.pma.dao.EmployeeRepository;
 import com.kaush.pma.entities.Employee;
+import com.kaush.pma.services.EmployeeService;
 
 @Controller
 @RequestMapping("/employees")
@@ -18,6 +19,9 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeRepository empRepo;
+	
+	@Autowired
+	EmployeeService empService;
 	
 	@GetMapping
 	public String displayEmployees(Model model) {
