@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -16,37 +17,42 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration   
 @EnableWebSecurity
 public class SecurityConfigurationsDevDB extends WebSecurityConfigurerAdapter{
+	
 	@Autowired
 	DataSource datasource;  // spring is smart enough to choose the running database and automatically wired it to here
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptEncoder;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth.jdbcAuthentication().dataSource(datasource)  
 		.usersByUsernameQuery("select username, password, enabled " +
-				"from users where username = ?")
-		.authoritiesByUsernameQuery("select username, authority "+
-				"from authorities where username=?");
+				"from user_accounts where username = ?")
+		.authoritiesByUsernameQuery("select username, role "+
+				"from user_accounts where username=?")
+		.passwordEncoder(bCryptEncoder);  // this time we create password encoder( BCryptEncoder) using webConfig class
+		// because of that  we removed our custom method we use to encrypt password for previous example
 		
 	}
-	
-	// in spring if we use password we have to use password encoder()
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
-	
+
 	// here we configure authorization using httpSecurity
 	@Override
 	protected void configure(HttpSecurity http)throws Exception{
 		http.authorizeRequests()  // only admin has access to create projects
 			.antMatchers("/projects/new").hasRole("ADMIN")
+			.antMatchers("/projects/save").hasRole("ADMIN")
 			.antMatchers("/employees/new").hasRole("ADMIN")
-			.antMatchers("/h2_console/**").permitAll()
-			.antMatchers("/").authenticated().and().formLogin();
-		
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
+			.antMatchers("/employees/save").hasRole("ADMIN")
+			.antMatchers("/", "/**").permitAll() // ** mean all of the other end points (if we put this line to obove this line the other rules wil not registered)
+			//.formLogin().loginPage("/login-page"); // if we need to customize a seperate page we can do it using this
+			.and()
+			.formLogin();
+
+// these things no need in production it can be hacked (we can discuss how to protect your web from csrf tocken)
+//		http.csrf().disable();
+//		http.headers().frameOptions().disable();
 	}
 	
 }
