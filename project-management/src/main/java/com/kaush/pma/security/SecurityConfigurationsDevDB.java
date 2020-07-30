@@ -48,7 +48,9 @@ public class SecurityConfigurationsDevDB extends WebSecurityConfigurerAdapter{
 			//.formLogin().loginPage("/login-page"); // if we need to customize a seperate page we can do it using this
 			.and()
 			.formLogin();
-
+		
+		// this put because i put to test post, put and other request in rest api section
+		http.csrf().disable();
 // these things no need in production it can be hacked when we disable csrf (we can discuss how to protect your web from csrf tocken)
 //		http.csrf().disable();
 //		http.headers().frameOptions().disable();

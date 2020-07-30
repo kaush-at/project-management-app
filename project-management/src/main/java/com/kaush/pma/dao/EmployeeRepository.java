@@ -12,8 +12,8 @@ import com.kaush.pma.entities.Employee;
 // first argument is going to be Entity type(what type we dealing with) and second argument is going to be type of primary key
 public interface EmployeeRepository extends CrudRepository<Employee, Long>{
 
-	@Override
-	public List<Employee> findAll();
+//	@Override
+//	public List<Employee> findAll();
 	
 	@Query(nativeQuery = true, value="SELECT e.first_name as firstName, e.last_name as lastName," + 
 			"COUNT (pe.employee_id) as projectCount FROM employee e left join project_employee pe ON pe.employee_id = e.employee_id " + 

@@ -3,6 +3,7 @@ package com.kaush.pma.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 @Entity
 public class Employee {
@@ -23,8 +29,18 @@ public class Employee {
 	@SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
 	private long employeeId;
 	
+	@NotNull
+	@Size(min = 2, max = 50)
 	private String firstName;
+	
+	@NotNull
+	@Size(min = 2, max = 50) // => org.hibernate.validator dependency eka add karanna one pom ekata
 	private String lastName;
+	
+	@NotNull
+	@Email  // import javax.validation.constraints.Size; => client level validations
+	//@Column(unique = true, nullable = false)
+	@Column(unique = true)  // db level validation
 	private String email;
 	
 	public Employee() {
@@ -41,6 +57,7 @@ public class Employee {
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "employee_id") , 
 										  inverseJoinColumns = @JoinColumn(name = "project_id") )
+	@JsonIgnore
 	private List<Project> projects;
 	
 	

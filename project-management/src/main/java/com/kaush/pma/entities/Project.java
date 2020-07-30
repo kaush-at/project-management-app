@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //This class structure is going to map to a table structure in database
 // try to create mapping with a java world with a database world thanks tp java persistence library
 // most specifically JPA(Java persistence API) that is part of the hibernate module withing spring
@@ -54,6 +56,7 @@ public class Project {
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "project_id") ,
 										  inverseJoinColumns = @JoinColumn(name = "employee_id") )
+	@JsonIgnore
 	private List<Employee> employees;
 	
 	
