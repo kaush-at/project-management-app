@@ -68,7 +68,7 @@ public class ProjectController {
 		
 		// use redirect to prevent duplicate submissions (when user submit two three times it can submit duplicates) 
 		// therefore always try to do redirect after saving data  
-		return "redirect:/projects";
+		return "redirect:/projects/new";
 		
 	}
 }
