@@ -40,10 +40,10 @@ public class SecurityConfigurationsDevDB extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()  // only admin has access to create projects
 			.antMatchers("/projects/new").hasRole("ADMIN")  // db eke ADMIN kiyala danna ba ROLE_ADMIN lesa danna one
 			.antMatchers("/projects/save").hasRole("ADMIN")
-			//.antMatchers("/employees/new").hasRole("ADMIN")   
-			//.antMatchers("/employees/save").hasRole("ADMIN")
-			.antMatchers("/employees/new").hasAnyAuthority("ADMIN")   // meke ROLE wachane mulata one na ADMIN wachane witharai
-			.antMatchers("/employees/save").hasAnyAuthority("ADMIN")
+			.antMatchers("/employees/new").hasRole("ADMIN")   
+			.antMatchers("/employees/save").hasRole("ADMIN")
+//			.antMatchers("/employees/new").hasAnyAuthority("ADMIN")   // meke ROLE wachane mulata one na ADMIN wachane witharai
+//			.antMatchers("/employees/save").hasAnyAuthority("ADMIN")
 			.antMatchers("/", "/**").permitAll() // ** mean all of the other end points (if we put this line to obove this line the other rules wil not registered)
 			//.formLogin().loginPage("/login-page"); // if we need to customize a seperate page we can do it using this
 			.and()

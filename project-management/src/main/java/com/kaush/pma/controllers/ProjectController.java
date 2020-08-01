@@ -41,7 +41,7 @@ public class ProjectController {
 										  // this empty project
 		
 		model.addAttribute("project", aProject); // name of the model object should same as th:object="${project}" in the HTML page
-		List<Employee> employees = empRepo.findAll();
+		Iterable<Employee> employees = empRepo.findAll();
 		model.addAttribute("allEmployees", employees);
 		return "projects/new-project"; // no need .html -> because Thymeleaf is smart enough to match it with name 
 		

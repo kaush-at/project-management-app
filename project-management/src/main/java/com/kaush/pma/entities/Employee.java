@@ -3,7 +3,6 @@ package com.kaush.pma.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +16,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kaush.pma.validators.UniqueValue;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -40,7 +40,8 @@ public class Employee {
 	@NotNull
 	@Email  // import javax.validation.constraints.Size; => client level validations
 	//@Column(unique = true, nullable = false)
-	@Column(unique = true)  // db level validation
+	//@Column(unique = true)  // db level validation therefore we create a seperate annotation called UniqueVale
+	@UniqueValue
 	private String email;
 	
 	public Employee() {
