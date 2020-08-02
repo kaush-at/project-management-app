@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,17 +29,17 @@ public class Employee {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employee_seq")
 	@SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
 	private long employeeId;
-	
-	@NotNull
-	@Size(min = 2, max = 50)
+	 
+	@NotBlank(message="First name cannot be empty") // @NotNull  => NotBlank catch the empty spaces too 
+	@Size(min = 2, max = 50, message="first name should be valid")  // if you need to give your own messages we can define a message to this 
 	private String firstName;
 	
-	@NotNull
+	@NotBlank(message="Last name cannot be empty")
 	@Size(min = 2, max = 50) // => org.hibernate.validator dependency eka add karanna one pom ekata
 	private String lastName;
 	
-	@NotNull
-	@Email  // import javax.validation.constraints.Size; => client level validations
+	@NotBlank
+	@Email(message="Must be an valid email")  // import javax.validation.constraints.Size; => client level validations
 	//@Column(unique = true, nullable = false)
 	//@Column(unique = true)  // db level validation therefore we create a seperate annotation called UniqueVale
 	@UniqueValue

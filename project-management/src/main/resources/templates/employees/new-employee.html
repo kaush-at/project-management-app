@@ -16,17 +16,33 @@
 			<!-- this will use to bind the id for given user inside the update button -->	
 			<input type="hidden" th:field="${employee.employeeId}"/>
 			
-			<label>First Name</label>
-			<input type="text" placeholder="First Name" th:field="${employee.firstName}"><br>
+			<!--<div class="form-group row">-->
+				<label>First Name</label><br>
+				<input type="text" placeholder="First Name" th:field="${employee.firstName}"><br>
+				<span style="color:red" th:if="${#fields.hasErrors('firstName')}"  
+					th:errors="${employee.firstName}" >    <!-- backend eken return karana Errors object eke field kiyana property eke firstname eke errors tiyenawada
+															tiyenawanam ${employee.firstName}" magin karanne actual entity eke tiyena error eka show karanawa methana-->
+				</span><br>
+			<!--</div>-->
 			
-			<label>Last Name</label>
-			<input type="text" placeholder="Last Name" th:field="*{lastName}"><br>
+			<!--<div class="form-group row">-->
+				<label>Last Name</label><br>
+				<input type="text" placeholder="Last Name" th:field="*{lastName}"><br>
+				<span style="color:red" th:if="${#fields.hasErrors('lastName')}"  
+					th:errors="${employee.lastName}" > 
+				</span><br>
+			<!--</div>-->
 			
-			<label>Email</label>
-			<input type="text" placeholder="Email" th:field="${employee.email}">
-
+			<!--<div class="form-group row">-->
+				<label>Email</label><br>
+				<input type="text" placeholder="Email" th:field="${employee.email}"><br>
+				<span style="color:red" th:if="${#fields.hasErrors('email')}"  
+					th:errors="${employee.email}" > 
+				</span><br>
+			<!--</div>-->
+			<br>
 			<!--  <input type="hidden" name="_CSRF" th:value="${_csrf.token}"/>-->
-			<button type="submit">Register Employee</button>
+			<button class="btn btn-info col-2" type="submit">Register Employee</button>
 
 		</form>
 	</div>

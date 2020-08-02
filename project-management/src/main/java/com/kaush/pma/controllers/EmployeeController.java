@@ -1,11 +1,11 @@
 package com.kaush.pma.controllers;
 
-import java.util.List;
-import java.util.Optional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +39,11 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/save")
-	public String addEmployee(Employee employeee, Model model) {
+	public String addEmployee(Model model, @Valid Employee employeee,  Errors errors) { // @Valid check the employee data with its validation on particular entity
+		System.out.println("EEERRRRRRROOOOOOOORRRRRR>>>> "+ errors.hasErrors());
+		if(errors.hasErrors()) {
+			return "employees/new-employee";
+		}
 		// save to the database using an employee CRUD repository
 		empRepo.save(employeee);
 		return "redirect:/employees/";

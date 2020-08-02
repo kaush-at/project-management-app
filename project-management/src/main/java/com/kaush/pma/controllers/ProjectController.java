@@ -46,7 +46,6 @@ public class ProjectController {
 		
 		model.addAttribute("project", aProject); // name of the model object should same as th:object="${project}" in the HTML page
 		Iterable<Employee> employees = empRepo.findAll();
-		System.out.println(employees);
 		model.addAttribute("allEmployees", employees);
 		return "projects/new-project"; // no need .html -> because Thymeleaf is smart enough to match it with name 
 		
@@ -82,6 +81,10 @@ public class ProjectController {
 	public String updateProject(@RequestParam("pId") long id,Project project, Model model) {
 		Project pro = proRepo.findById(id).get();
 		model.addAttribute("project",pro);
+		
+		Iterable<Employee> employees = empRepo.findAll();
+		model.addAttribute("allEmployees", employees);
+		
 		return "projects/new-project";
 	}
 	
