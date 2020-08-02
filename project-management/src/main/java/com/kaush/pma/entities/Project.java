@@ -1,6 +1,7 @@
 package com.kaush.pma.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,9 +34,16 @@ public class Project {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="project_seq")
 	@SequenceGenerator(name = "project_seq", sequenceName = "project_seq", allocationSize = 1)
 	private long projectId;
+	
 	private String name;
 	private String stage; //NOTSTARTE,COMPLETE,INPROGRESS
 	private String description;
+	
+	@NotBlank(message="Start date should include")
+	private Date startDate;
+	
+	@NotBlank(message="End date should include")
+	private Date endDate;
 	
 	public Project() {
 		
@@ -90,6 +99,22 @@ public class Project {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public List<Employee> getEmployees() {

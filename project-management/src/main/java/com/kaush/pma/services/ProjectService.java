@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kaush.pma.dao.ProjectRepository;
 import com.kaush.pma.dto.ChartData;
+import com.kaush.pma.dto.TimeLineChartData;
 import com.kaush.pma.entities.Project;
 
 @Service
@@ -29,5 +30,9 @@ public class ProjectService {
 
 	public void delete(Project proj) {
 		proRepo.delete(proj);
+	}
+	
+	public List<TimeLineChartData> getTimeLineChartDatas(){
+		return proRepo.getTimeData();
 	}
 }

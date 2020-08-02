@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import com.kaush.pma.dto.ChartData;
+import com.kaush.pma.dto.TimeLineChartData;
 import com.kaush.pma.entities.Project;
 
 // using these crud repository we can add data, delete data,save etc goto this class and check
@@ -22,4 +22,8 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	@Query(nativeQuery= true, value="SELECT stage as label, COUNT(*) as value FROM project " + 
 			"GROUP BY stage")
 	public List<ChartData>  getProjectStatus();
+	
+	// startDate as same as property in the entity
+	@Query(nativeQuery= true, value="SELECT name as projectName ,start_date as startDate, end_date as endDate FROM project where start_date is not null")
+	public List<TimeLineChartData> getTimeData();
 }
