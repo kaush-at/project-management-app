@@ -15,6 +15,7 @@ import com.kaush.pma.dao.EmployeeRepository;
 import com.kaush.pma.dao.ProjectRepository;
 import com.kaush.pma.entities.Employee;
 import com.kaush.pma.entities.Project;
+import com.kaush.pma.services.ProjectService;
 
 @Controller
 @RequestMapping("/projects")
@@ -26,6 +27,9 @@ public class ProjectController {
 	
 	@Autowired
 	EmployeeRepository empRepo;
+	
+	@Autowired
+	ProjectService projService;
 	
 	@GetMapping
 	public String displayEmployees(Model model) {
@@ -42,6 +46,7 @@ public class ProjectController {
 		
 		model.addAttribute("project", aProject); // name of the model object should same as th:object="${project}" in the HTML page
 		Iterable<Employee> employees = empRepo.findAll();
+		System.out.println(employees);
 		model.addAttribute("allEmployees", employees);
 		return "projects/new-project"; // no need .html -> because Thymeleaf is smart enough to match it with name 
 		
@@ -51,6 +56,7 @@ public class ProjectController {
 	@PostMapping("/save") // OR @RequestMapping("/save", method=RequestedMethod.POST)
 	//public String saveProject(Project project, BindingResult bindingResults, @RequestParam List<Long> employees, Model model) { 
 	public String saveProject(Project project, Model model,@RequestParam List<Long> employees) { 	
+		System.out.println("#################################################### ");
 		proRepo.save(project);
 		
 	
@@ -68,7 +74,22 @@ public class ProjectController {
 		
 		// use redirect to prevent duplicate submissions (when user submit two three times it can submit duplicates) 
 		// therefore always try to do redirect after saving data  
-		return "redirect:/projects/new";
+		return "redirect:/projects";
 		
 	}
+	
+	@GetMapping("/update")
+	public String updateProject(@RequestParam("pId") long id,Project project, Model model) {
+		Project pro = proRepo.findById(id).get();
+		model.addAttribute("project",pro);
+		return "projects/new-project";
+	}
+	
+	@GetMapping("/delete")
+	public String deleteProject(@RequestParam("id") long id, Model model) {
+		Project proj = proRepo.findById(id).get();
+		projService.delete(proj);
+		return "redirect:/projects";
+	}
+	
 }

@@ -26,4 +26,8 @@ public class ProjectService {
 	public List<ChartData> getProjectStatus(){
 		return proRepo.getProjectStatus();
 	}
+
+	public void delete(Project proj) {
+		proRepo.delete(proj);
+	}
 }
