@@ -9,13 +9,8 @@ import com.kaush.pma.dto.ChartData;
 import com.kaush.pma.dto.TimeLineChartData;
 import com.kaush.pma.entities.Project;
 
-// using these crud repository we can add data, delete data,save etc goto this class and check
 public interface ProjectRepository extends CrudRepository<Project, Long>{
 
-	// you can create custom queries according to your object instead of predefined methods of CrudRepository
-	
-	// findAll method we get from extended CrudRepository interface it returns iterable  object therefore we customize it 
-	// in our ProjectRepo interface.
 	@Override
 	public List<Project> findAll();
 	
@@ -23,7 +18,6 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 			"GROUP BY stage")
 	public List<ChartData>  getProjectStatus();
 	
-	// startDate as same as property in the entity
 	@Query(nativeQuery= true, value="SELECT name as projectName ,start_date as startDate, end_date as endDate FROM project where start_date is not null")
 	public List<TimeLineChartData> getTimeData();
 }
