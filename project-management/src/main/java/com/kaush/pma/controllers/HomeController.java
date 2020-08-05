@@ -22,11 +22,9 @@ import com.kaush.pma.springExample.Car;
 @Controller
 public class HomeController {
 
-	// this is use for demo purpose of Bean creation and put those in to Spring contex
 	@Autowired
 	Car car;
 	
-	// this is how we access the properties inside the property files
 	@Value(value = "${version}")
 	private String version;
 
@@ -41,23 +39,17 @@ public class HomeController {
 		Map<String, Object> map = new HashMap<>();
 		
 		model.addAttribute("version", version);
-		// quering database for projects
-		List<Project> projects = proRepo.findAll();  // findAll method we get from extended CrudRepository interface it returns iterable 
-													// object therefore we customize it in our ProjectRep[o interface
+		List<Project> projects = proRepo.findAll();  
+													
 		model.addAttribute("projectList", projects);
 		
 		List<ChartData> chartData = proRepo.getProjectStatus();
 		
-		// Lets convert projectData object into a JSON structure for use in javascript(using object mapper)
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(chartData);
-		// this json String should look like this => [["NOTSTARTED", 1],["INPROGRESS", 2],["COMPLETED", 1]] 
 		
 		model.addAttribute("projectStatusCount", jsonString);
 		
-		// quering database for employee
-//		List<Employee> employees = empRepo.findAll(); we change this because we use project_emploee table
-		List<EmployeeProject> employeesProjectCount = empRepo.employeeProjects();
 		model.addAttribute("employeeListProjectCount", employeesProjectCount);
 		
 		return "main/home";

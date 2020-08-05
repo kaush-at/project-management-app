@@ -39,7 +39,7 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/save")
-	public String addEmployee(Model model, @Valid Employee employeee,  Errors errors) { // @Valid check the employee data with its validation on particular entity
+	public String addEmployee(Model model, @Valid Employee employeee,  Errors errors) { 
 		System.out.println("EEERRRRRRROOOOOOOORRRRRR>>>> "+ errors.hasErrors());
 		if(errors.hasErrors()) {
 			return "employees/new-employee";
@@ -49,10 +49,6 @@ public class EmployeeController {
 		return "redirect:/employees/";
 	}
 	
-	// UPDATE Employee
-	// because of we have <a> tag we use @GetMapping  if you need to put post put and delete you have to use form
-	// <a th:href="@{/employees/update(id=${employee.employeeId})}" class="btn btn-info btn-sm">Update</a>  => id=${employee.employeeId}
-	//if i chnge this as empId  => id=${employee.employeeId} then i have to change requestParam as "empId"
 	@GetMapping("/update")
 	public String displayEmployeeForm(@RequestParam("id") long theId, Model model) {
 		Employee emp = empRepo.findById(theId).get();

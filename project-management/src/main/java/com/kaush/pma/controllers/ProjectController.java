@@ -25,7 +25,7 @@ import com.kaush.pma.services.ProjectService;
 public class ProjectController {
 	
 	
-	@Autowired // we gives responsibility to spring container to inject an instance(auto created instance)
+	@Autowired
 	ProjectRepository proRepo;
 	
 	@Autowired
@@ -41,43 +41,21 @@ public class ProjectController {
 		return "projects/list-projects";
 	} 
 	
-	@RequestMapping("/new") //OR @GetMapping("/new") 
-	public String displayProjectForm(Model model) { // model is use to exchange the data between view and controller
-		
-		Project aProject = new Project(); // thats why we created default constructor in the project class thats why we can create
-										  // this empty project
-		
-		model.addAttribute("project", aProject); // name of the model object should same as th:object="${project}" in the HTML page
+	@RequestMapping("/new")
+	public String displayProjectForm(Model model) {
+		Project aProject = new Project(); 
+		model.addAttribute("project", aProject);
 		Iterable<Employee> employees = empRepo.findAll();
 		model.addAttribute("allEmployees", employees);
-		return "projects/new-project"; // no need .html -> because Thymeleaf is smart enough to match it with name 
+		return "projects/new-project";
 		
 	}
 	
-	// get the form data
-	@PostMapping("/save") // OR @RequestMapping("/save", method=RequestedMethod.POST)
-	//public String saveProject(Project project, BindingResult bindingResults, @RequestParam List<Long> employees, Model model) { 
+	@PostMapping("/save")
 	public String saveProject(Project project, Model model,@RequestParam List<Long> employees) { 	
 		System.out.println("#################################################### ");
-		proRepo.save(project);
-		
-	
-		 // commented this lines because of @ManyToMany relationship
-//		  		Iterable<Employee> choosenEmployees = empRepo.findAllById(employees);
-//	
-//				for(Employee emp : choosenEmployees) {
-//					emp.setProject(project);
-//					empRepo.save(emp);
-//				}
-		 
-		
-
-
-		
-		// use redirect to prevent duplicate submissions (when user submit two three times it can submit duplicates) 
-		// therefore always try to do redirect after saving data  
-		return "redirect:/projects";
-		
+		proRepo.save(project); 
+		return "redirect:/projects";	
 	}
 	
 	@GetMapping("/update")
@@ -106,8 +84,6 @@ public class ProjectController {
 		String jsonTimeLineString = objMapper.writeValueAsString(timeLineData);
 		
 		model.addAttribute("projectTimeList", jsonTimeLineString);
-		System.out.println("Project timelines........");
-		System.out.println("22222222222222222222222222222222222222222222" + jsonTimeLineString);
 		
 		return "projects/project-timelines";
 	}

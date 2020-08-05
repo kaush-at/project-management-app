@@ -33,7 +33,6 @@ public class AppErrorController implements ErrorController {
 	// this is the place we define what is the error path
 	@Override
 	public String getErrorPath() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

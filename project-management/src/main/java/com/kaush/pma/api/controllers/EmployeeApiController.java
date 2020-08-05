@@ -32,8 +32,6 @@ public class EmployeeApiController {
 	
 	@GetMapping
 	public Iterable<Employee> getEmployees(){
-		//List<Employee> empList = empRepo.findAll();
-		
 		return empRepo.findAll();
 	}
 
@@ -42,22 +40,15 @@ public class EmployeeApiController {
 		return empRepo.findById(id).get();
 	}
 	
-	// meke wishesha endpoint ekak define karala nathi nisa  => main eka mai (/app-api/employees) ganne
-//	@PostMapping(consumes = "application/json")  // we define by consume this method accept these type of data formats
-//	@ResponseStatus(HttpStatus.CREATED) // to give seperate response code other than 200
-//	public Employee create(@RequestBody Employee emp) {  // body of the request should Employee in JSON format(consume param eken kiyanne eka)
-//		return empRepo.save(emp);
-//	}
-	
 	@PostMapping(consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Employee create(@RequestBody @Valid Employee emp) {
 		return empRepo.save(emp);
 	}
 	
-	@PutMapping(consumes = "application/json") // when we do update using this we do full update because of our cascade delete rule it delete 
-	@ResponseStatus(HttpStatus.OK)							   // other records that relate to that updated recore therefore it is better to update partially
-	public Employee update(@RequestBody @Valid Employee employee) {	// that is where @patch partial update comming to the picture
+	@PutMapping(consumes = "application/json")
+	@ResponseStatus(HttpStatus.OK)							 
+	public Employee update(@RequestBody @Valid Employee employee) {	
 		return empRepo.save(employee);
 	}
 	
