@@ -24,37 +24,26 @@ import com.sun.istack.NotNull;
 public class Employee {
 
 	@Id
-	//@GeneratedValue(strategy=GenerationType.AUTO)
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employee_seq")
 	@SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq", allocationSize = 1)
 	private long employeeId;
 	 
-	@NotBlank(message="First name cannot be empty") // @NotNull  => NotBlank catch the empty spaces too 
-	@Size(min = 2, max = 50, message="first name should be valid")  // if you need to give your own messages we can define a message to this 
+	@NotBlank(message="First name cannot be empty") 
+	@Size(min = 2, max = 50, message="first name should be valid") 
 	private String firstName;
 	
 	@NotBlank(message="Last name cannot be empty")
-	@Size(min = 2, max = 50) // => org.hibernate.validator dependency eka add karanna one pom ekata
+	@Size(min = 2, max = 50)
 	private String lastName;
 	
 	@NotBlank
-	@Email(message="Must be an valid email")  // import javax.validation.constraints.Size; => client level validations
-	//@Column(unique = true, nullable = false)
-	//@Column(unique = true)  // db level validation therefore we create a seperate annotation called UniqueVale
+	@Email(message="Must be an valid email") 
 	@UniqueValue
 	private String email;
 	
 	public Employee() {
 		
 	}
-	/*
-	 * @ManyToMany one nisa meka change kara pahala 
-	 * @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
-	 * @JoinColumn(name="project_id")
-	 * private Project project;
-	 * 
-	 */
 
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "employee_id") , 
