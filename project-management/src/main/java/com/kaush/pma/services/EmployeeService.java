@@ -12,35 +12,6 @@ import com.kaush.pma.entities.Employee;
 @Service
 public class EmployeeService{
 
-	/* 
-	 * ---------------
-	 * 1	field injection
-	 *  -------------
-	@Autowired
-	EmployeeRepository empRepo;
-	
-	*/
-	
-	/*
-	 * ---------------------
-	 * 2    Constructor injection
-	 * ---------------------
-	 
-	EmployeeRepository empRepo;
-	
-	public EmployeeService(EmployeeRepository empRepo) {
-		super()
-		this.empRepo = empRepo;
-	}
-	
-	*/
-	
-	
-	/*
-	 * ---------------------
-	 * 3    Setter injection
-	 * ---------------------
-	 */
 	@Autowired
 	EmployeeRepository empRepo;
 	
