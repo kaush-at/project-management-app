@@ -9,10 +9,10 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 
-@Target({ElementType.FIELD}) // in here we define whre our annotation going to be target ex/ class level, method level, on field
-@Retention(RetentionPolicy.RUNTIME)  // retention annotation describe if the custom annotation should be available in byte code(going to use in runtime)
-@Constraint(validatedBy = UniqueValidator.class) //UniqueValidator is the class contains our validation rules (validatedBy eken tama define karanne 
-													//validation rule tiyena class ekaclass )
+@Target({ElementType.FIELD}) 
+@Retention(RetentionPolicy.RUNTIME)  
+@Constraint(validatedBy = UniqueValidator.class)
+													
 public @interface UniqueValue {
 	
 	String message() default "Unique Constraint violated";

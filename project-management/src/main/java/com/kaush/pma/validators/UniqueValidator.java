@@ -11,7 +11,7 @@ import com.kaush.pma.entities.Employee;
 public class UniqueValidator implements ConstraintValidator<UniqueValue, String>{
 
 	@Autowired
-	EmployeeRepository empRepo;  // meyawa autowire kare meya gen tama check karane email eka nisa
+	EmployeeRepository empRepo; 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		
