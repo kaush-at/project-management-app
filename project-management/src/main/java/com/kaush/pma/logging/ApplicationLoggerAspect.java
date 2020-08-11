@@ -22,33 +22,6 @@ public class ApplicationLoggerAspect {
 		// empty method just to name the location specified in the pontcut
 	}
 	
-	/*
-	 * without joinpoint
-	 */
-//	@Before("definePackagePointcuts()")
-//	public void log() {
-//		log.debug("-------------------------------------------------");
-//	}
-	
-	
-	
-	/*
-	 * With joinpoint
-	 */
-//	@After("definePackagePointcuts()")
-//	public void logDetails(JoinPoint jp) {
-//		log.debug("\n  \n  \n");
-//		log.debug("*************** Logging details *************  \n {}.{} () with argument[s] = {}", jp.getSignature().getDeclaringTypeName(),
-//				jp.getSignature().getName(), Arrays.toString(jp.getArgs()));
-//		log.debug("------------------------------------------------- \n \n \n");
-//	}
-//	
-	
-	
-	
-	/*
-	 * proceed
-	 */
 	
 	@Around("definePackagePointcuts()")
 	public Object logDetailsArround(ProceedingJoinPoint pjp) {
