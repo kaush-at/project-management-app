@@ -52,8 +52,7 @@ public class ProjectController {
 	}
 	
 	@PostMapping("/save")
-	public String saveProject(Project project, Model model,@RequestParam List<Long> employees) { 	
-		System.out.println("#################################################### ");
+	public String saveProject(Project project, Model model,@RequestParam List<Long> employees) {
 		proRepo.save(project); 
 		return "redirect:/projects";	
 	}
